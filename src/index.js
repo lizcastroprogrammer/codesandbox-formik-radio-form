@@ -1,39 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Formik, Field, Form } from 'formik';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Formik, Field, Form } from "formik";
 
-const Basic = () => (
+const Example = () => (
   <div>
     <h1>Sign Up</h1>
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
+        picked: ""
       }}
       onSubmit={async (values) => {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(values, null, 2));
       }}
     >
-      <Form>
-        <label htmlFor="firstName">First Name</label>
-        <Field id="firstName" name="firstName" placeholder="Jane" />
+      {({ values }) => (
+        <Form>
+          <div id="my-radio-group">Picked</div>
+          <div role="group" aria-labelledby="my-radio-group">
+            <label>
+              <Field type="radio" name="picked" value="One" />
+              One
+            </label>
+            <label>
+              <Field type="radio" name="picked" value="Two" />
+              Two
+            </label>
+            <div>Picked: {values.picked}</div>
+          </div>
 
-        <label htmlFor="lastName">Last Name</label>
-        <Field id="lastName" name="lastName" placeholder="Doe" />
-
-        <label htmlFor="email">Email</label>
-        <Field
-          id="email"
-          name="email"
-          placeholder="jane@acme.com"
-          type="email"
-        />
-        <button type="submit">Submit</button>
-      </Form>
+          <button type="submit">Submit</button>
+        </Form>
+      )}
     </Formik>
   </div>
 );
 
-ReactDOM.render(<Basic />, document.getElementById('root'));
+ReactDOM.render(<Example />, document.getElementById("root"));
